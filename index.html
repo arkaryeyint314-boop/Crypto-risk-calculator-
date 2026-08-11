@@ -1,44 +1,850 @@
-Crypto Risk Calculator
-Eye-friendly dark mode • data stays on this device
-Account
-Account Size (USDT)
-−
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto Risk Calculator</title>
 
-+
-Risk %
-Leverage (x)
-Trade Setup
-Direction
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#0d1014;
+  color:#c9ced5;
+  padding:18px 13px 40px;
+}
+
+.container{
+  max-width:520px;
+  margin:auto;
+}
+
+h1{
+  font-size:24px;
+  font-weight:650;
+  color:#d5d9df;
+  margin:0 0 5px;
+}
+
+.sub{
+  color:#727a85;
+  font-size:13px;
+  margin-bottom:20px;
+}
+
+.card{
+  background:#14181d;
+  border:1px solid #20252c;
+  border-radius:17px;
+  padding:16px;
+  margin-bottom:13px;
+  box-shadow:0 2px 12px rgba(0,0,0,.18);
+}
+
+h2{
+  font-size:15px;
+  font-weight:600;
+  color:#b8bec7;
+  margin:0 0 13px;
+}
+
+label{
+  display:block;
+  font-size:12px;
+  color:#777f8a;
+  margin:11px 0 6px;
+}
+
+input,
+select{
+  width:100%;
+  height:45px;
+  border:1px solid #292f37;
+  border-radius:10px;
+  background:#101419;
+  color:#cdd2d9;
+  padding:0 12px;
+  font-size:16px;
+  outline:none;
+}
+
+input:focus,
+select:focus{
+  border-color:#56606d;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+
+.account-row{
+  display:grid;
+  grid-template-columns:43px 1fr 43px;
+  gap:7px;
+}
+
+.small-btn{
+  border:1px solid #292f37;
+  background:#191e24;
+  color:#aeb5be;
+  border-radius:10px;
+  font-size:19px;
+}
+
+.direction{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.direction button{
+  height:43px;
+  border-radius:10px;
+  border:1px solid #292f37;
+  background:#101419;
+  color:#777f8a;
+  font-weight:650;
+}
+
+.direction button.active{
+  background:#29333f;
+  color:#c8ced6;
+  border-color:#414c59;
+}
+
+.buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:16px;
+}
+
+.main-btn,
+.clear-btn,
+.result-btn{
+  height:45px;
+  border:0;
+  border-radius:10px;
+  font-weight:650;
+  font-size:14px;
+}
+
+.main-btn{
+  background:#303a46;
+  color:#d0d5dc;
+}
+
+.clear-btn{
+  background:#1b2026;
+  color:#9199a3;
+  border:1px solid #282e35;
+}
+
+.main-btn:active,
+.clear-btn:active,
+.small-btn:active{
+  transform:scale(.98);
+}
+
+.results{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.result{
+  background:#101419;
+  border:1px solid #222830;
+  border-radius:11px;
+  padding:11px;
+}
+
+.result span{
+  display:block;
+  color:#737c87;
+  font-size:11px;
+  margin-bottom:5px;
+}
+
+.result strong{
+  color:#c4cad2;
+  font-size:15px;
+  font-weight:600;
+}
+
+.note{
+  color:#6f7782;
+  font-size:11.5px;
+  line-height:1.55;
+  margin-top:12px;
+}
+
+.trade-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+
+.win{
+  background:#1b3027;
+  color:#91b5a2;
+  border:1px solid #294238;
+}
+
+.loss{
+  background:#351f24;
+  color:#b9959c;
+  border:1px solid #493037;
+}
+
+.full{
+  width:100%;
+  margin-top:8px;
+}
+
+.history-item{
+  border:1px solid #242a31;
+  background:#101419;
+  border-radius:11px;
+  padding:11px;
+  margin-bottom:8px;
+  color:#8e96a0;
+  font-size:11.5px;
+  line-height:1.65;
+}
+
+.history-top{
+  display:flex;
+  justify-content:space-between;
+  font-weight:650;
+  color:#adb4bd;
+}
+
+.positive{
+  color:#8eaf9d;
+}
+
+.negative{
+  color:#b38f96;
+}
+
+.empty{
+  color:#69727d;
+  text-align:center;
+  padding:9px 0;
+  font-size:12px;
+}
+
+@media(max-width:380px){
+  body{
+    padding:14px 10px 35px;
+  }
+
+  .row,
+  .results{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Crypto Risk Calculator</h1>
+<div class="sub">Eye-friendly dark mode • data stays on this device</div>
+
+<div class="card">
+
+<h2>Account</h2>
+
+<label>Account Size (USDT)</label>
+
+<div class="account-row">
+<button class="small-btn" onclick="changeAccount(-10)">−</button>
+<input id="account" type="number" value="1000" min="0">
+<button class="small-btn" onclick="changeAccount(10)">+</button>
+</div>
+
+<div class="row">
+
+<div>
+<label>Risk %</label>
+<input id="risk" type="number" value="1" min="0" step="0.1">
+</div>
+
+<div>
+<label>Leverage (x)</label>
+<input id="leverage" type="number" value="10" min="1" step="1">
+</div>
+
+</div>
+</div>
+
+
+<div class="card">
+
+<h2>Trade Setup</h2>
+
+<label>Direction</label>
+
+<div class="direction">
+<button id="longBtn" class="active" onclick="setDirection('LONG')">
 LONG
+</button>
+
+<button id="shortBtn" onclick="setDirection('SHORT')">
 SHORT
-Entry
-Stop Loss
-Take Profit
-Calculate
-Clear
-Result
-Risk Amount
-$0.00
-SL Distance
-0
-Position Size
-0
-Position Value
-$0.00
-Margin
-$0.00
-Reward at TP
-$0.00
-Risk : Reward
-—
-TP %
-0%
-Position size = Risk Amount ÷ Entry-to-SL price distance. Leverage changes required margin, not the risk-based position size.
-Trade Result
-+ WIN
+</button>
+</div>
+
+
+<div class="row">
+
+<div>
+<label>Entry</label>
+<input id="entry" type="number" step="any" placeholder="Entry price">
+</div>
+
+<div>
+<label>Stop Loss</label>
+<input id="sl" type="number" step="any" placeholder="Stop price">
+</div>
+
+</div>
+
+
+<label>Take Profit</label>
+<input id="tp" type="number" step="any" placeholder="Target price">
+
+
+<div class="buttons">
+<button class="main-btn" onclick="calculate()">Calculate</button>
+<button class="clear-btn" onclick="clearSetup()">Clear</button>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>Result</h2>
+
+<div class="results">
+
+<div class="result">
+<span>Risk Amount</span>
+<strong id="riskAmount">$0.00</strong>
+</div>
+
+<div class="result">
+<span>SL Distance</span>
+<strong id="slDistance">0</strong>
+</div>
+
+<div class="result">
+<span>Position Size</span>
+<strong id="positionSize">0</strong>
+</div>
+
+<div class="result">
+<span>Position Value</span>
+<strong id="positionValue">$0.00</strong>
+</div>
+
+<div class="result">
+<span>Margin</span>
+<strong id="margin">$0.00</strong>
+</div>
+
+<div class="result">
+<span>Reward at TP</span>
+<strong id="reward">$0.00</strong>
+</div>
+
+<div class="result">
+<span>Risk : Reward</span>
+<strong id="rr">—</strong>
+</div>
+
+<div class="result">
+<span>TP %</span>
+<strong id="tpPercent">0%</strong>
+</div>
+
+</div>
+
+<div class="note">
+Position size = Risk Amount ÷ Entry-to-SL price distance.
+Leverage changes required margin, not the risk-based position size.
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>Trade Result</h2>
+
+<div class="trade-buttons">
+
+<button class="result-btn win" onclick="finishTrade('WIN')">
+＋ WIN
+</button>
+
+<button class="result-btn loss" onclick="finishTrade('LOSS')">
 − LOSS
-WIN adds the calculated TP reward. LOSS subtracts the calculated risk amount. The account balance updates automatically.
-Trade History
-No trades yet.
+</button>
+
+</div>
+
+<div class="note">
+WIN adds the calculated TP reward. LOSS subtracts the calculated risk amount.
+The account balance updates automatically.
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>Trade History</h2>
+
+<div id="history"></div>
+
+<button class="clear-btn full" onclick="clearHistory()">
 Clear History
+</button>
+
+<button class="clear-btn full" onclick="resetApp()">
 Reset App
+</button>
+
+</div>
+
+</div>
+
+
+<script>
+
+let direction="LONG";
+let lastTrade=null;
+
+let balance=Number(localStorage.getItem("balance")) || 1000;
+
+let history=JSON.parse(
+  localStorage.getItem("tradeHistory") || "[]"
+);
+
+document.getElementById("account").value=balance;
+
+
+function changeAccount(amount){
+
+  let input=document.getElementById("account");
+
+  let value=Number(input.value)||0;
+
+  value=Math.max(0,value+amount);
+
+  input.value=value;
+}
+
+
+function setDirection(dir){
+
+  direction=dir;
+
+  document
+    .getElementById("longBtn")
+    .classList.toggle("active",dir==="LONG");
+
+  document
+    .getElementById("shortBtn")
+    .classList.toggle("active",dir==="SHORT");
+}
+
+
+function money(n){
+
+  return "$"+Number(n).toLocaleString(undefined,{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+
+}
+
+
+function num(n){
+
+  return Number(n).toLocaleString(undefined,{
+    maximumFractionDigits:8
+  });
+
+}
+
+
+function calculate(){
+
+  const account=Number(
+    document.getElementById("account").value
+  );
+
+  const riskPct=Number(
+    document.getElementById("risk").value
+  );
+
+  const leverage=Number(
+    document.getElementById("leverage").value
+  );
+
+  const entry=Number(
+    document.getElementById("entry").value
+  );
+
+  const sl=Number(
+    document.getElementById("sl").value
+  );
+
+  const tp=Number(
+    document.getElementById("tp").value
+  );
+
+
+  if(
+    !account ||
+    !riskPct ||
+    !leverage ||
+    !entry ||
+    !sl ||
+    !tp
+  ){
+
+    alert("Please enter all trade values.");
+
+    return;
+  }
+
+
+  if(
+    direction==="LONG" &&
+    !(sl<entry && tp>entry)
+  ){
+
+    alert(
+      "LONG: Stop Loss must be below Entry and Take Profit must be above Entry."
+    );
+
+    return;
+  }
+
+
+  if(
+    direction==="SHORT" &&
+    !(sl>entry && tp<entry)
+  ){
+
+    alert(
+      "SHORT: Stop Loss must be above Entry and Take Profit must be below Entry."
+    );
+
+    return;
+  }
+
+
+  const riskAmount=
+    account*(riskPct/100);
+
+  const slDistance=
+    Math.abs(entry-sl);
+
+  const positionSize=
+    riskAmount/slDistance;
+
+  const positionValue=
+    positionSize*entry;
+
+  const margin=
+    positionValue/leverage;
+
+  const reward=
+    Math.abs(tp-entry)*positionSize;
+
+  const rr=
+    reward/riskAmount;
+
+  const tpPct=
+    (Math.abs(tp-entry)/entry)*100;
+
+
+  document.getElementById("riskAmount")
+    .textContent=money(riskAmount);
+
+  document.getElementById("slDistance")
+    .textContent=num(slDistance);
+
+  document.getElementById("positionSize")
+    .textContent=num(positionSize);
+
+  document.getElementById("positionValue")
+    .textContent=money(positionValue);
+
+  document.getElementById("margin")
+    .textContent=money(margin);
+
+  document.getElementById("reward")
+    .textContent=money(reward);
+
+  document.getElementById("rr")
+    .textContent="1 : "+rr.toFixed(2);
+
+  document.getElementById("tpPercent")
+    .textContent=tpPct.toFixed(2)+"%";
+
+
+  lastTrade={
+
+    direction,
+    account,
+    riskPct,
+    leverage,
+    entry,
+    sl,
+    tp,
+    riskAmount,
+    reward,
+    rr,
+    positionSize,
+    positionValue,
+    margin,
+    tpPct
+
+  };
+
+}
+
+
+function finishTrade(result){
+
+  if(!lastTrade){
+
+    alert("Calculate the trade first.");
+
+    return;
+  }
+
+
+  const pnl=
+    result==="WIN"
+    ? lastTrade.reward
+    : -lastTrade.riskAmount;
+
+
+  balance+=pnl;
+
+
+  document.getElementById("account").value=
+    balance;
+
+
+  const trade={
+
+    ...lastTrade,
+
+    result,
+    pnl,
+    balance,
+
+    time:new Date().toLocaleString()
+
+  };
+
+
+  history.unshift(trade);
+
+
+  localStorage.setItem(
+    "balance",
+    balance
+  );
+
+  localStorage.setItem(
+    "tradeHistory",
+    JSON.stringify(history)
+  );
+
+
+  renderHistory();
+
+
+  alert(
+    result==="WIN"
+    ? "WIN recorded: +"+money(pnl)
+    : "LOSS recorded: -"+money(Math.abs(pnl))
+  );
+
+}
+
+
+function renderHistory(){
+
+  const box=
+    document.getElementById("history");
+
+
+  if(history.length===0){
+
+    box.innerHTML=
+      '<div class="empty">No trades yet.</div>';
+
+    return;
+  }
+
+
+  box.innerHTML=
+
+    history.map((t)=>`
+
+      <div class="history-item">
+
+        <div class="history-top">
+
+          <span>
+            ${t.direction} • ${t.result}
+          </span>
+
+          <span class="${
+            t.pnl>=0
+            ? "positive"
+            : "negative"
+          }">
+
+            ${t.pnl>=0?"+":""}${money(t.pnl)}
+
+          </span>
+
+        </div>
+
+        Entry: ${num(t.entry)}
+        • SL: ${num(t.sl)}
+        • TP: ${num(t.tp)}
+        <br>
+
+        Risk: ${money(t.riskAmount)}
+        • R:R 1:${Number(t.rr).toFixed(2)}
+
+        <br>
+
+        Balance: ${money(t.balance)}
+
+        <br>
+
+        ${t.time}
+
+      </div>
+
+    `).join("");
+
+}
+
+
+function clearSetup(){
+
+  document.getElementById("entry").value="";
+  document.getElementById("sl").value="";
+  document.getElementById("tp").value="";
+
+
+  document.getElementById("riskAmount")
+    .textContent="$0.00";
+
+  document.getElementById("slDistance")
+    .textContent="0";
+
+  document.getElementById("positionSize")
+    .textContent="0";
+
+  document.getElementById("positionValue")
+    .textContent="$0.00";
+
+  document.getElementById("margin")
+    .textContent="$0.00";
+
+  document.getElementById("reward")
+    .textContent="$0.00";
+
+  document.getElementById("rr")
+    .textContent="—";
+
+  document.getElementById("tpPercent")
+    .textContent="0%";
+
+
+  lastTrade=null;
+
+}
+
+
+function clearHistory(){
+
+  if(
+    !confirm("Clear all trade history?")
+  ) return;
+
+
+  history=[];
+
+  localStorage.removeItem(
+    "tradeHistory"
+  );
+
+  renderHistory();
+
+}
+
+
+function resetApp(){
+
+  if(
+    !confirm(
+      "Reset account balance and all app data?"
+    )
+  ) return;
+
+
+  localStorage.removeItem("balance");
+  localStorage.removeItem("tradeHistory");
+
+
+  balance=1000;
+  history=[];
+
+
+  document.getElementById("account")
+    .value=1000;
+
+  document.getElementById("risk")
+    .value=1;
+
+  document.getElementById("leverage")
+    .value=10;
+
+
+  clearSetup();
+
+  renderHistory();
+
+}
+
+
+renderHistory();
+
+</script>
+
+</body>
+</html>
