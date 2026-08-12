@@ -2,312 +2,456 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#0d1014">
-
 <title>Crypto Risk Calculator</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
+*{box-sizing:border-box}
 
 :root{
-  --bg:#0d1014;
-  --card:#151a20;
-  --card2:#11161c;
-  --border:#252c34;
-  --input:#10151a;
-  --inputBorder:#2a323b;
-  --text:#dbe2e9;
-  --muted:#7f8b98;
-  --green:#35d07f;
-  --red:#ff5f6d;
-  --blue:#5ca8ff;
-  --yellow:#f2c94c;
+--bg:#0d1014;
+--text:#cbd0d7;
+--muted:#747d88;
+--card:#151a20;
+--border:#252c34;
+--input:#10151a;
+--inputBorder:#2a323b;
+
+--account:#18232b;
+--setup:#211d29;
+--result:#172421;
+--tp:#20202b;
+--be:#20271f;
+--performance:#272319;
+--history:#191e25;
+
+--accent:#8c98a6;
+--long:#8fb4a0;
+--longBg:#1a3027;
+--short:#bd929a;
+--shortBg:#341f25;
+--yellow:#b7a77b;
+--yellowBg:#302b1f;
+}
+
+body.light{
+--bg:#eef0f2;
+--text:#343a42;
+--muted:#747b84;
+--card:#f8f9fa;
+--border:#d9dde2;
+--input:#fff;
+--inputBorder:#cfd4da;
+
+--account:#e5edf2;
+--setup:#ebe7f0;
+--result:#e5efeb;
+--tp:#e9e7ef;
+--be:#e8eee4;
+--performance:#f0eadc;
+--history:#e6e9ed;
+
+--accent:#59636e;
+--long:#47765d;
+--longBg:#dcebe2;
+--short:#955b66;
+--shortBg:#f0dfe2;
+--yellow:#806f43;
+--yellowBg:#eee8d8;
 }
 
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  min-height:100vh;
+margin:0;
+padding:12px 10px 28px;
+background:var(--bg);
+color:var(--text);
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+transition:.2s;
 }
 
 .container{
-  width:min(100%,560px);
-  margin:auto;
-  padding:14px 12px 30px;
+max-width:520px;
+margin:auto
 }
 
 .header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:14px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px
 }
 
-.title{
-  font-size:20px;
-  font-weight:700;
-  letter-spacing:-.3px;
+h1{
+margin:0;
+font-size:21px;
+font-weight:650
 }
 
-.subtitle{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:3px;
+.sub{
+color:var(--muted);
+font-size:11px;
+margin-top:3px
 }
 
-.badge{
-  font-size:10px;
-  color:var(--green);
-  border:1px solid #24583f;
-  background:#102219;
-  padding:5px 8px;
-  border-radius:999px;
+.theme{
+width:38px;
+height:38px;
+border-radius:50%;
+border:1px solid var(--border);
+background:var(--card);
+color:var(--text);
+font-size:17px
 }
 
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:12px;
-  margin-bottom:10px;
+border:1px solid var(--border);
+border-radius:13px;
+padding:12px;
+margin-bottom:9px
 }
 
-.section-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:9px;
+.account{background:var(--account)}
+.setup{background:var(--setup)}
+.result{background:var(--result)}
+.tpCard{background:var(--tp)}
+.beCard{background:var(--be)}
+.performance{background:var(--performance)}
+.history{background:var(--history)}
+
+h2{
+margin:0 0 9px;
+font-size:14px;
+font-weight:650
 }
 
-.section-title span:first-child{
-  font-size:12px;
-  font-weight:700;
-}
-
-.section-note{
-  color:var(--muted);
-  font-size:9px;
-}
-
-.direction{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-}
-
-.direction button{
-  height:36px;
-  border:1px solid var(--inputBorder);
-  background:var(--input);
-  color:var(--muted);
-  border-radius:8px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.direction button.active.long{
-  color:var(--green);
-  border-color:#28764e;
-  background:#10231a;
-}
-
-.direction button.active.short{
-  color:var(--red);
-  border-color:#74303a;
-  background:#241316;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-
-.field{
-  min-width:0;
+h3{
+margin:10px 0 6px;
+font-size:12px
 }
 
 label{
-  display:block;
-  font-size:10px;
-  color:var(--muted);
-  margin:0 0 5px 2px;
+display:block;
+margin:7px 0 4px;
+font-size:11px;
+color:var(--muted)
 }
 
-input{
-  width:100%;
-  height:37px;
-  border-radius:8px;
-  border:1px solid var(--inputBorder);
-  background:var(--input);
-  color:var(--text);
-  outline:none;
-  padding:0 9px;
-  font-size:12px;
-  font-weight:600;
+input,select{
+width:100%;
+height:39px;
+border-radius:8px;
+border:1px solid var(--inputBorder);
+background:var(--input);
+color:var(--text);
+padding:0 9px;
+font-size:14px;
+outline:none
 }
 
-input:focus{
-  border-color:#456071;
+input:focus,select:focus{
+border-color:var(--accent)
 }
 
-input::placeholder{
-  color:#4e5964;
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:7px
 }
 
-.optional{
-  color:#596572;
-  font-size:9px;
-  font-weight:400;
+.accountRow{
+display:grid;
+grid-template-columns:38px 1fr 38px;
+gap:6px
 }
 
-.risk-row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
+.smallBtn{
+border:1px solid var(--inputBorder);
+background:var(--input);
+color:var(--text);
+border-radius:8px;
+font-size:18px
 }
 
-.calculate{
-  width:100%;
-  height:42px;
-  border:0;
-  border-radius:9px;
-  background:#dce4eb;
-  color:#0d1014;
-  font-size:13px;
-  font-weight:800;
-  margin-top:2px;
+.direction{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:7px
 }
 
-.calculate:active{
-  transform:scale(.99);
+.direction button{
+height:39px;
+border-radius:8px;
+border:1px solid var(--inputBorder);
+background:var(--input);
+color:var(--muted);
+font-weight:650
 }
 
-.clear{
-  width:100%;
-  height:34px;
-  border:1px solid var(--border);
-  border-radius:8px;
-  background:transparent;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:7px;
+.direction .long.active{
+background:var(--longBg);
+border-color:var(--long);
+color:var(--long)
 }
 
-.result-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
+.direction .short.active{
+background:var(--shortBg);
+border-color:var(--short);
+color:var(--short)
 }
 
-.result{
-  background:var(--card2);
-  border:1px solid var(--border);
-  border-radius:9px;
-  padding:9px;
-  min-height:58px;
+.tpTable{
+border:1px solid var(--border);
+border-radius:10px;
+overflow:hidden;
+background:var(--input)
 }
 
-.result .r-label{
-  font-size:9px;
-  color:var(--muted);
-  margin-bottom:4px;
+.tpRow{
+display:grid;
+grid-template-columns:42px 1fr 92px;
+align-items:center;
+gap:7px;
+padding:7px 8px;
+border-bottom:1px solid var(--border)
 }
 
-.result .r-value{
-  font-size:14px;
-  font-weight:800;
+.tpRow:last-child{
+border-bottom:0
 }
 
-.green{
-  color:var(--green);
+.tpLabel{
+font-size:12px;
+font-weight:700
 }
 
-.red{
-  color:var(--red);
+.tp1{color:#8299a9}
+.tp2{color:#9b8cae}
+.tp3{color:#a89976}
+
+.tpRow input{
+height:35px
 }
 
-.blue{
-  color:var(--blue);
+.tpHeader{
+display:grid;
+grid-template-columns:42px 1fr 92px;
+gap:7px;
+padding:5px 8px;
+font-size:9px;
+color:var(--muted);
+border-bottom:1px solid var(--border)
 }
 
-.yellow{
-  color:var(--yellow);
+.allocation{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:7px;
+font-size:11px;
+color:var(--muted)
 }
 
-.exit-box{
-  border-color:#394653;
-  background:#121920;
+.exitBox{
+margin-top:8px;
+padding:9px;
+border:1px solid var(--border);
+border-radius:10px;
+background:var(--input)
 }
 
-.exit-box input{
-  border-color:#40515f;
+.exitTitle{
+font-size:11px;
+font-weight:650;
+margin-bottom:5px
 }
 
-.tp-list{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:7px;
+.exitNote{
+font-size:9.5px;
+color:var(--muted);
+margin-top:5px;
+line-height:1.4
 }
 
-.tp-item{
-  min-width:0;
+.buttons{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:7px
 }
 
-.tp-title{
-  font-size:10px;
-  color:var(--muted);
-  margin:0 0 4px 2px;
-  font-weight:700;
+.mainBtn{
+height:41px;
+border:0;
+border-radius:8px;
+background:var(--accent);
+color:var(--bg);
+font-weight:700
 }
 
-.tp-title span{
-  font-size:8px;
-  font-weight:400;
+.clearBtn{
+height:41px;
+border-radius:8px;
+border:1px solid var(--border);
+background:var(--card);
+color:var(--muted);
+font-weight:650
 }
 
-.info{
-  color:var(--muted);
-  font-size:9px;
-  line-height:1.45;
-  margin-top:8px;
+.results{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:6px
 }
 
-.divider{
-  height:1px;
-  background:var(--border);
-  margin:11px 0;
+.resultBox,.stat{
+background:var(--input);
+border:1px solid var(--border);
+border-radius:9px;
+padding:8px 9px
 }
 
-.small-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:7px;
+.resultBox span,.stat span{
+display:block;
+font-size:9.5px;
+color:var(--muted);
+margin-bottom:3px
 }
 
-@media(max-width:380px){
-  .container{
-    padding-left:9px;
-    padding-right:9px;
-  }
+.resultBox strong,.stat strong{
+font-size:13px;
+font-weight:650
+}
 
-  .card{
-    padding:10px;
-  }
+.note{
+color:var(--muted);
+font-size:10.5px;
+line-height:1.45;
+margin-top:7px
+}
 
-  input{
-    font-size:11px;
-  }
+.tpResult{
+margin-top:7px;
+padding:8px 9px;
+border-radius:9px;
+background:var(--input);
+border:1px solid var(--border)
+}
 
-  .result .r-value{
-    font-size:13px;
-  }
+.tpResultLine{
+display:flex;
+justify-content:space-between;
+padding:2px 0;
+font-size:10.5px
+}
+
+.beRow{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:7px
+}
+
+.beManual{
+margin-top:7px
+}
+
+.performanceGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:6px
+}
+
+@media(max-width:430px){
+.performanceGrid{
+grid-template-columns:repeat(2,1fr)
+}
+}
+
+.tradeButtons{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:7px
+}
+
+.win{
+height:41px;
+border-radius:8px;
+border:1px solid var(--long);
+background:var(--longBg);
+color:var(--long);
+font-weight:650
+}
+
+.loss{
+height:41px;
+border-radius:8px;
+border:1px solid var(--short);
+background:var(--shortBg);
+color:var(--short);
+font-weight:650
+}
+
+.historyItem{
+background:var(--input);
+border:1px solid var(--border);
+border-radius:9px;
+padding:9px;
+margin-bottom:6px;
+color:var(--muted);
+font-size:10.5px;
+line-height:1.5
+}
+
+.historyTop{
+display:flex;
+justify-content:space-between;
+font-weight:650;
+color:var(--text)
+}
+
+.longText{color:var(--long)}
+.shortText{color:var(--short)}
+
+.full{
+width:100%;
+margin-top:6px
+}
+
+.empty{
+text-align:center;
+padding:8px;
+color:var(--muted);
+font-size:11px
+}
+
+.positive{color:var(--long)!important}
+.negative{color:var(--short)!important}
+.warning{color:var(--yellow)!important}
+
+@media(max-width:360px){
+
+body{
+padding-left:8px;
+padding-right:8px
+}
+
+.card{
+padding:10px
+}
+
+.tpRow{
+grid-template-columns:38px 1fr 82px;
+gap:5px;
+padding:6px
+}
+
+.tpHeader{
+grid-template-columns:38px 1fr 82px
+}
+
+input,select{
+font-size:13px
+}
+
 }
 </style>
 </head>
@@ -316,563 +460,1478 @@ input::placeholder{
 
 <div class="container">
 
-  <div class="header">
-    <div>
-      <div class="title">Crypto Risk Calculator</div>
-      <div class="subtitle">Position size • Risk • TP • Actual Exit</div>
-    </div>
-    <div class="badge">FUTURES</div>
-  </div>
+<div class="header">
 
-  <!-- TRADE -->
-  <div class="card">
+<div>
+<h1>Crypto Risk Calculator</h1>
+<div class="sub">
+Risk • TP Management • Break Even • Fees
+</div>
+</div>
 
-    <div class="section-title">
-      <span>Trade</span>
-      <span class="section-note">Long / Short</span>
-    </div>
+<button class="theme" id="themeBtn" onclick="toggleTheme()">☾</button>
 
-    <div class="direction">
-      <button id="longBtn" class="active long" onclick="setDirection('long')">
-        LONG
-      </button>
+</div>
 
-      <button id="shortBtn" onclick="setDirection('short')">
-        SHORT
-      </button>
-    </div>
-
-    <div style="height:9px"></div>
-
-    <div class="grid">
-
-      <div class="field">
-        <label>Entry Price</label>
-        <input id="entry" type="number" inputmode="decimal" placeholder="e.g. 61893">
-      </div>
-
-      <div class="field">
-        <label>Stop Loss</label>
-        <input id="sl" type="number" inputmode="decimal" placeholder="e.g. 62360">
-      </div>
-
-      <div class="field">
-        <label>Account Balance</label>
-        <input id="balance" type="number" inputmode="decimal" placeholder="e.g. 1000">
-      </div>
-
-      <div class="field">
-        <label>Risk %</label>
-        <input id="riskPercent" type="number" inputmode="decimal" placeholder="e.g. 1">
-      </div>
-
-    </div>
+<div class="card account">
 
-  </div>
-
-  <!-- POSITION -->
-  <div class="card">
+<h2>Account</h2>
 
-    <div class="section-title">
-      <span>Position</span>
-      <span class="section-note">Optional leverage</span>
-    </div>
+<label>Account Size (USDT)</label>
 
-    <div class="risk-row">
+<div class="accountRow">
 
-      <div class="field">
-        <label>Risk Amount ($)</label>
-        <input id="riskAmount" type="number" inputmode="decimal" placeholder="Auto">
-      </div>
+<button class="smallBtn" onclick="changeAccount(-10)">−</button>
 
-      <div class="field">
-        <label>Leverage <span class="optional">(optional)</span></label>
-        <input id="leverage" type="number" inputmode="decimal" placeholder="e.g. 10">
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- TAKE PROFITS -->
-  <div class="card">
+<input id="account" type="number" value="0" min="0">
 
-    <div class="section-title">
-      <span>Take Profit</span>
-      <span class="section-note">All optional</span>
-    </div>
+<button class="smallBtn" onclick="changeAccount(10)">+</button>
 
-    <div class="tp-list">
+</div>
 
-      <div class="tp-item">
-        <div class="tp-title">TP 1 <span>optional</span></div>
-        <input id="tp1" type="number" inputmode="decimal" placeholder="Price">
-      </div>
+<div class="row">
 
-      <div class="tp-item">
-        <div class="tp-title">TP 2 <span>optional</span></div>
-        <input id="tp2" type="number" inputmode="decimal" placeholder="Price">
-      </div>
+<div>
+<label>Risk %</label>
+<input id="risk" type="number" value="1" min="0" step="0.1">
+</div>
 
-      <div class="tp-item">
-        <div class="tp-title">TP 3 <span>optional</span></div>
-        <input id="tp3" type="number" inputmode="decimal" placeholder="Price">
-      </div>
+<div>
+<label>Leverage (x)</label>
+<input id="leverage" type="number" value="1" min="1">
+</div>
 
-    </div>
+</div>
 
-    <div class="info">
-      TP မထည့်ထားလည်း Calculate လုပ်လို့ရပါတယ်။
-      TP1 ပဲရှိရင်လည်း ရပါတယ်။
-    </div>
-
-  </div>
+</div>
 
-  <!-- ACTUAL EXIT -->
-  <div class="card exit-box">
+<div class="card setup">
 
-    <div class="section-title">
-      <span>Actual Exit Price</span>
-      <span class="section-note">Recommended</span>
-    </div>
+<h2>Trade Setup</h2>
 
-    <div class="field">
-      <input
-        id="exitPrice"
-        type="number"
-        inputmode="decimal"
-        placeholder="တကယ်ပိတ်မယ့် price"
-      >
-    </div>
+<label>Direction</label>
 
-    <div class="info">
-      ဒီနေရာမှာ trade တကယ်ပိတ်တဲ့စျေးကို ထည့်ပါ။
-      TP1 ထိပြီး BE သွားရင် BE price ထည့်နိုင်ပါတယ်။
-      TP မရောက်ခင် ကိုယ်ပိတ်လိုက်တဲ့စျေးလည်း ထည့်နိုင်ပါတယ်။
-    </div>
+<div class="direction">
 
-  </div>
+<button id="longBtn"
+class="long active"
+onclick="setDirection('LONG')">
+LONG
+</button>
 
-  <button class="calculate" onclick="calculate()">
-    CALCULATE
-  </button>
+<button id="shortBtn"
+class="short"
+onclick="setDirection('SHORT')">
+SHORT
+</button>
 
-  <button class="clear" onclick="clearAll()">
-    CLEAR
-  </button>
+</div>
 
-  <!-- RESULTS -->
-  <div id="results" style="display:none;margin-top:10px">
+<div class="row">
 
-    <div class="card">
+<div>
+<label>Entry</label>
+<input id="entry" type="number" step="any">
+</div>
 
-      <div class="section-title">
-        <span>Position Result</span>
-      </div>
+<div>
+<label>Stop Loss</label>
+<input id="sl" type="number" step="any">
+</div>
 
-      <div class="result-grid">
+</div>
 
-        <div class="result">
-          <div class="r-label">Risk Amount</div>
-          <div id="outRisk" class="r-value yellow">—</div>
-        </div>
+<label>Trading Fee (%)</label>
+<input id="fee" type="number" value="0.05" min="0" step="0.001">
 
-        <div class="result">
-          <div class="r-label">Position Size</div>
-          <div id="outPosition" class="r-value blue">—</div>
-        </div>
+<div class="note">
+Fee is calculated on entry and exit notional.
+</div>
 
-        <div class="result">
-          <div class="r-label">Quantity</div>
-          <div id="outQty" class="r-value">—</div>
-        </div>
+</div>
 
-        <div class="result">
-          <div class="r-label">SL Distance</div>
-          <div id="outSLDistance" class="r-value red">—</div>
-        </div>
+<div class="card tpCard">
 
-      </div>
+<h2>Take Profit</h2>
 
-    </div>
+<div class="tpTable">
 
-    <div class="card">
+<div class="tpHeader">
+<span></span>
+<span>PRICE</span>
+<span>CLOSE %</span>
+</div>
 
-      <div class="section-title">
-        <span>Risk / Reward</span>
-      </div>
+<div class="tpRow">
+<div class="tpLabel tp1">TP1</div>
+<input id="tp1" type="number" step="any" placeholder="Manual">
+<input id="tp1pct" type="number" min="0" max="100" step="0.1" placeholder="%">
+</div>
 
-      <div class="result-grid">
+<div class="tpRow">
+<div class="tpLabel tp2">TP2</div>
+<input id="tp2" type="number" step="any" placeholder="Manual">
+<input id="tp2pct" type="number" min="0" max="100" step="0.1" placeholder="%">
+</div>
 
-        <div class="result">
-          <div class="r-label">TP1 R:R</div>
-          <div id="outRR1" class="r-value green">—</div>
-        </div>
+<div class="tpRow">
+<div class="tpLabel tp3">TP3</div>
+<input id="tp3" type="number" step="any" placeholder="Manual">
+<input id="tp3pct" type="number" min="0" max="100" step="0.1" placeholder="%">
+</div>
 
-        <div class="result">
-          <div class="r-label">TP2 R:R</div>
-          <div id="outRR2" class="r-value green">—</div>
-        </div>
+</div>
 
-        <div class="result">
-          <div class="result">
-            <div class="r-label">TP3 R:R</div>
-            <div id="outRR3" class="r-value green">—</div>
-          </div>
-        </div>
+<div class="allocation">
+<span>TP Allocation</span>
+<strong id="allocationText">0%</strong>
+</div>
 
-        <div class="result">
-          <div class="r-label">Actual Exit R</div>
-          <div id="outExitR" class="r-value blue">—</div>
-        </div>
+<div class="exitBox">
 
-      </div>
+<div class="exitTitle">
+Actual Exit Price
+</div>
 
-    </div>
+<input
+id="exitPrice"
+type="number"
+step="any"
+placeholder="Final exit price"
+>
 
-    <div class="card">
+<div class="exitNote">
+Used for the remaining position after TP partial closes.
+</div>
 
-      <div class="section-title">
-        <span>Actual Trade Result</span>
-        <span id="resultStatus" class="section-note"></span>
-      </div>
+</div>
 
-      <div class="result-grid">
+</div>
 
-        <div class="result">
-          <div class="r-label">Actual Exit</div>
-          <div id="outExit" class="r-value">—</div>
-        </div>
+<div class="card beCard">
 
-        <div class="result">
-          <div class="r-label">P&L</div>
-          <div id="outPnL" class="r-value">—</div>
-        </div>
+<h2>Break Even</h2>
 
-        <div class="result">
-          <div class="r-label">Actual R</div>
-          <div id="outActualR" class="r-value">—</div>
-        </div>
+<label>BE Trigger</label>
 
-        <div class="result">
-          <div class="r-label">Return %</div>
-          <div id="outReturn" class="r-value">—</div>
-        </div>
+<select id="beTrigger" onchange="toggleManualBE()">
 
-      </div>
+<option value="OFF">OFF</option>
+<option value="TP1">After TP1</option>
+<option value="TP2">After TP2</option>
+<option value="TP3">After TP3</option>
+<option value="MANUAL">Manual Price</option>
 
-    </div>
+</select>
 
-  </div>
+<div id="manualBEBox" class="beManual" style="display:none">
+
+<label>Manual BE Price</label>
+<input id="beManual" type="number" step="any">
+
+</div>
+
+<div class="note">
+BE trigger moves the remaining position SL to the BE price.
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="buttons">
+
+<button class="mainBtn" onclick="calculate()">
+Calculate
+</button>
+
+<button class="clearBtn" onclick="clearSetup()">
+Clear
+</button>
+
+</div>
+
+</div>
+
+<div class="card result">
+
+<h2>Result</h2>
+
+<div class="results">
+
+<div class="resultBox">
+<span>Risk Amount</span>
+<strong id="riskAmount">$0.00</strong>
+</div>
+
+<div class="resultBox">
+<span>SL Distance</span>
+<strong id="slDistance">0</strong>
+</div>
+
+<div class="resultBox">
+<span>Position Size</span>
+<strong id="positionSize">0</strong>
+</div>
+
+<div class="resultBox">
+<span>Position Value</span>
+<strong id="positionValue">$0.00</strong>
+</div>
+
+<div class="resultBox">
+<span>Margin</span>
+<strong id="margin">$0.00</strong>
+</div>
+
+<div class="resultBox">
+<span>Gross Reward</span>
+<strong id="grossReward">$0.00</strong>
+</div>
+
+<div class="resultBox">
+<span>Total Fees</span>
+<strong id="totalFee">$0.00</strong>
+</div>
+
+<div class="resultBox">
+<span>Net Reward</span>
+<strong id="netReward">$0.00</strong>
+</div>
+
+<div class="resultBox">
+<span>Weighted TP</span>
+<strong id="weightedTP">—</strong>
+</div>
+
+<div class="resultBox">
+<span>Net R:R</span>
+<strong id="netRR">—</strong>
+</div>
+
+<div class="resultBox">
+<span>Actual Exit</span>
+<strong id="actualExit">—</strong>
+</div>
+
+<div class="resultBox">
+<span>Actual Net P&L</span>
+<strong id="actualPnL">—</strong>
+</div>
+
+<div class="resultBox">
+<span>Actual R</span>
+<strong id="actualR">—</strong>
+</div>
+
+<div class="resultBox">
+<span>Remaining %</span>
+<strong id="actualRemaining">—</strong>
+</div>
+
+</div>
+
+<div id="tpResults"></div>
+
+<div class="tpResult">
+
+<div class="tpResultLine">
+<span>BE Price</span>
+<strong id="bePrice">—</strong>
+</div>
+
+<div class="tpResultLine">
+<span>Remaining After TP</span>
+<strong id="remainingPct">—</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Trade Result</h2>
+
+<div class="tradeButtons">
+
+<button class="win" onclick="finishTrade('WIN')">
+＋ WIN
+</button>
+
+<button class="loss" onclick="finishTrade('LOSS')">
+− LOSS
+</button>
+
+</div>
+
+</div>
+
+<div class="card performance">
+
+<h2>Performance</h2>
+
+<div class="performanceGrid">
+
+<div class="stat">
+<span>Starting Balance</span>
+<strong id="startingBalance">$0.00</strong>
+</div>
+
+<div class="stat">
+<span>Current Balance</span>
+<strong id="currentBalance">$0.00</strong>
+</div>
+
+<div class="stat">
+<span>Total Trades</span>
+<strong id="totalTrades">0</strong>
+</div>
+
+<div class="stat">
+<span>Win Rate</span>
+<strong id="winRate">0%</strong>
+</div>
+
+<div class="stat">
+<span>Wins</span>
+<strong id="wins">0</strong>
+</div>
+
+<div class="stat">
+<span>Losses</span>
+<strong id="losses">0</strong>
+</div>
+
+<div class="stat">
+<span>Net P&L</span>
+<strong id="netPnl">$0.00</strong>
+</div>
+
+<div class="stat">
+<span>Total Fees</span>
+<strong id="feesPnl">$0.00</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="card history">
+
+<h2>Trade History</h2>
+
+<div id="history"></div>
+
+<button class="clearBtn full" onclick="clearHistory()">
+Clear History
+</button>
+
+<button class="clearBtn full" onclick="resetApp()">
+Reset App
+</button>
+
+</div>
 
 </div>
 
 <script>
 
-let direction = "long";
+let direction="LONG";
+let lastTrade=null;
 
-function setDirection(type){
+let startingBalance=
+Number(localStorage.getItem("startingBalance")) || 0;
 
-  direction = type;
+let balance=
+Number(localStorage.getItem("balance"));
 
-  const longBtn = document.getElementById("longBtn");
-  const shortBtn = document.getElementById("shortBtn");
-
-  longBtn.classList.remove("active");
-  shortBtn.classList.remove("active");
-
-  if(type === "long"){
-    longBtn.classList.add("active");
-  }else{
-    shortBtn.classList.add("active");
-  }
+if(!Number.isFinite(balance)){
+balance=startingBalance;
 }
 
-function num(id){
+let history=
+JSON.parse(
+localStorage.getItem("tradeHistory") || "[]"
+);
 
-  const value = parseFloat(document.getElementById(id).value);
+let theme=
+localStorage.getItem("theme") || "dark";
 
-  return Number.isFinite(value) ? value : null;
+if(theme==="light"){
+document.body.classList.add("light");
+document.getElementById("themeBtn").textContent="☀";
 }
 
-function money(value){
+document.getElementById("account").value=balance;
 
-  if(!Number.isFinite(value)) return "—";
-
-  return "$" + value.toFixed(2);
+if(history.length===0 && startingBalance===0){
+balance=0;
 }
 
-function price(value){
+function changeAccount(amount){
 
-  if(!Number.isFinite(value)) return "—";
+let input=document.getElementById("account");
 
-  return value.toLocaleString(undefined,{
-    maximumFractionDigits:8
-  });
+let value=
+Number(input.value)||0;
+
+value=Math.max(0,value+amount);
+
+input.value=value;
+
+setAccount(value);
 }
 
-function rrValue(value){
+function setAccount(value){
 
-  if(!Number.isFinite(value)) return "—";
+value=Number(value)||0;
 
-  return value.toFixed(2) + "R";
+if(history.length===0){
+
+startingBalance=value;
+balance=value;
+
+localStorage.setItem(
+"startingBalance",
+startingBalance
+);
+
+localStorage.setItem(
+"balance",
+balance
+);
+
+renderPerformance();
+
 }
+}
+
+document
+.getElementById("account")
+.addEventListener("change",function(){
+
+let value=
+Number(this.value)||0;
+
+if(history.length===0){
+setAccount(value);
+}
+
+});
+
+function toggleTheme(){
+
+document.body.classList.toggle("light");
+
+let light=
+document.body.classList.contains("light");
+
+localStorage.setItem(
+"theme",
+light?"light":"dark"
+);
+
+document.getElementById("themeBtn")
+.textContent=light?"☀":"☾";
+
+}
+
+function setDirection(dir){
+
+direction=dir;
+
+document
+.getElementById("longBtn")
+.classList.toggle(
+"active",
+dir==="LONG"
+);
+
+document
+.getElementById("shortBtn")
+.classList.toggle(
+"active",
+dir==="SHORT"
+);
+
+}
+
+function money(n){
+
+return "$"+
+Number(n).toLocaleString(
+undefined,
+{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+}
+);
+
+}
+
+function num(n){
+
+return Number(n).toLocaleString(
+undefined,
+{
+maximumFractionDigits:8
+}
+);
+
+}
+
+function toggleManualBE(){
+
+let value=
+document.getElementById("beTrigger").value;
+
+document.getElementById("manualBEBox")
+.style.display=
+value==="MANUAL"
+?"block"
+:"none";
+
+}
+
+function getTPs(){
+
+let arr=[];
+
+for(let i=1;i<=3;i++){
+
+let price=
+Number(
+document.getElementById("tp"+i).value
+);
+
+let pct=
+Number(
+document.getElementById("tp"+i+"pct").value
+);
+
+if(price>0 || pct>0){
+
+arr.push({
+index:i,
+price,
+pct
+});
+
+}
+
+}
+
+return arr;
+
+}
+
+function updateAllocation(){
+
+let total=0;
+
+for(let i=1;i<=3;i++){
+
+total+=
+Number(
+document.getElementById("tp"+i+"pct").value
+)||0;
+
+}
+
+let el=
+document.getElementById("allocationText");
+
+el.textContent=
+total.toFixed(1)+"%";
+
+el.className="";
+
+if(total===100){
+el.className="positive";
+}
+else if(total>100){
+el.className="negative";
+}
+else{
+el.className="warning";
+}
+
+}
+
+document
+.querySelectorAll(
+"#tp1pct,#tp2pct,#tp3pct"
+)
+.forEach(input=>{
+
+input.addEventListener(
+"input",
+updateAllocation
+);
+
+});
 
 function calculate(){
 
-  const entry = num("entry");
-  const sl = num("sl");
-  const balance = num("balance");
-  const riskPercent = num("riskPercent");
+const account=
+Number(
+document.getElementById("account").value
+);
+
+const riskPct=
+Number(
+document.getElementById("risk").value
+);
+
+const leverage=
+Number(
+document.getElementById("leverage").value
+);
+
+const entry=
+Number(
+document.getElementById("entry").value
+);
+
+const sl=
+Number(
+document.getElementById("sl").value
+);
+
+const feeRate=
+Number(
+document.getElementById("fee").value
+)||0;
+
+const actualExit=
+Number(
+document.getElementById("exitPrice").value
+);
+
+const tps=getTPs();
+
+if(
+!account ||
+!riskPct ||
+!leverage ||
+!entry ||
+!sl
+){
+
+alert(
+"Please enter Account, Risk, Leverage, Entry and SL."
+);
+
+return;
 
-  const tp1 = num("tp1");
-  const tp2 = num("tp2");
-  const tp3 = num("tp3");
-  const exit = num("exitPrice");
-
-  if(entry === null || sl === null){
-
-    alert("Entry Price နဲ့ Stop Loss ထည့်ပါ။");
-
-    return;
-  }
-
-  if(entry <= 0 || sl <= 0){
-
-    alert("Entry နဲ့ Stop Loss မှန်ကန်တဲ့ price ဖြစ်ရပါမယ်။");
-
-    return;
-  }
-
-  /*
-    LONG:
-    SL < Entry
-
-    SHORT:
-    SL > Entry
-  */
-
-  if(direction === "long" && sl >= entry){
-
-    alert("LONG trade မှာ Stop Loss က Entry အောက်မှာရှိရပါမယ်။");
-
-    return;
-  }
-
-  if(direction === "short" && sl <= entry){
-
-    alert("SHORT trade မှာ Stop Loss က Entry အပေါ်မှာရှိရပါမယ်။");
-
-    return;
-  }
-
-  let riskAmount = num("riskAmount");
-
-  if(riskAmount === null){
-
-    if(balance === null || riskPercent === null){
-
-      alert("Risk Amount ထည့်ပါ၊ ဒါမှမဟုတ် Account Balance + Risk % ထည့်ပါ။");
-
-      return;
-    }
-
-    if(balance <= 0 || riskPercent <= 0){
-
-      alert("Balance နဲ့ Risk % မှန်ကန်အောင်ထည့်ပါ။");
-
-      return;
-    }
-
-    riskAmount = balance * (riskPercent / 100);
-  }
-
-  if(riskAmount <= 0){
-
-    alert("Risk Amount မှန်ကန်အောင်ထည့်ပါ။");
-
-    return;
-  }
-
-  const slDistance = Math.abs(entry - sl);
-
-  /*
-    Position size in USDT
-    Risk = Position Size × SL%
-  */
-
-  const slPercent = slDistance / entry;
-
-  const positionSize = riskAmount / slPercent;
-
-  const quantity = positionSize / entry;
-
-  // R:R helper
-  function calculateRR(target){
-
-    if(target === null || target <= 0){
-
-      return null;
-    }
-
-    let reward;
-
-    if(direction === "long"){
-      reward = target - entry;
-    }else{
-      reward = entry - target;
-    }
-
-    return reward / slDistance;
-  }
-
-  const rr1 = calculateRR(tp1);
-  const rr2 = calculateRR(tp2);
-  const rr3 = calculateRR(tp3);
-
-  /*
-    Actual Exit
-    ----------------
-    User can enter any exit price.
-    Example:
-    Entry 100
-    SL 95
-    TP1 110
-    Actual Exit 100
-    => BE / 0R
-  */
-
-  let actualPnL = null;
-  let actualR = null;
-  let returnPercent = null;
-
-  if(exit !== null){
-
-    let priceMove;
-
-    if(direction === "long"){
-      priceMove = exit - entry;
-    }else{
-      priceMove = entry - exit;
-    }
-
-    actualPnL = quantity * priceMove;
-
-    actualR = actualPnL / riskAmount;
-
-    returnPercent = (actualPnL / positionSize) * 100;
-  }
-
-  document.getElementById("outRisk").textContent =
-    money(riskAmount);
-
-  document.getElementById("outPosition").textContent =
-    money(positionSize);
-
-  document.getElementById("outQty").textContent =
-    quantity.toFixed(6);
-
-  document.getElementById("outSLDistance").textContent =
-    price(slDistance) + " (" + (slPercent * 100).toFixed(2) + "%)";
-
-  document.getElementById("outRR1").textContent =
-    rrValue(rr1);
-
-  document.getElementById("outRR2").textContent =
-    rrValue(rr2);
-
-  document.getElementById("outRR3").textContent =
-    rrValue(rr3);
-
-  document.getElementById("outExit").textContent =
-    exit !== null ? price(exit) : "Not entered";
-
-  document.getElementById("outExitR").textContent =
-    actualR !== null ? rrValue(actualR) : "—";
-
-  document.getElementById("outPnL").textContent =
-    actualPnL !== null ? money(actualPnL) : "—";
-
-  document.getElementById("outActualR").textContent =
-    actualR !== null ? rrValue(actualR) : "—";
-
-  document.getElementById("outReturn").textContent =
-    returnPercent !== null
-      ? returnPercent.toFixed(2) + "%"
-      : "—";
-
-  const pnlElement = document.getElementById("outPnL");
-  const rElement = document.getElementById("outActualR");
-  const returnElement = document.getElementById("outReturn");
-  const status = document.getElementById("resultStatus");
-
-  pnlElement.classList.remove("green","red","blue");
-  rElement.classList.remove("green","red","blue");
-  returnElement.classList.remove("green","red","blue");
-
-  if(actualPnL !== null){
-
-    if(actualPnL > 0){
-
-      pnlElement.classList.add("green");
-      rElement.classList.add("green");
-      returnElement.classList.add("green");
-
-      status.textContent = "PROFIT";
-
-    }else if(actualPnL < 0){
-
-      pnlElement.classList.add("red");
-      rElement.classList.add("red");
-      returnElement.classList.add("red");
-
-      status.textContent = "LOSS";
-
-    }else{
-
-      pnlElement.classList.add("blue");
-      rElement.classList.add("blue");
-      returnElement.classList.add("blue");
-
-      status.textContent = "BREAK EVEN";
-    }
-
-  }else{
-
-    status.textContent = "EXIT PRICE NOT SET";
-  }
-
-  document.getElementById("results").style.display = "block";
-
-  document.getElementById("results").scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-  });
 }
 
-function clearAll(){
+if(
+direction==="LONG" &&
+sl>=entry
+){
 
-  const fields = [
-    "entry",
-    "sl",
-    "balance",
-    "riskPercent",
-    "riskAmount",
-    "leverage",
-    "tp1",
-    "tp2",
-    "tp3",
-    "exitPrice"
-  ];
+alert(
+"LONG: SL must be below Entry."
+);
 
-  fields.forEach(id=>{
-    document.getElementById(id).value = "";
-  });
+return;
 
-  document.getElementById("results").style.display = "none";
-
-  setDirection("long");
 }
+
+if(
+direction==="SHORT" &&
+sl<=entry
+){
+
+alert(
+"SHORT: SL must be above Entry."
+);
+
+return;
+
+}
+
+let allocation=0;
+
+for(const tp of tps){
+
+allocation+=tp.pct||0;
+
+if(!tp.price || !tp.pct){
+
+alert(
+"Each TP needs Price and Close %."
+);
+
+return;
+
+}
+
+if(
+direction==="LONG" &&
+tp.price<=entry
+){
+
+alert(
+"LONG TP must be above Entry."
+);
+
+return;
+
+}
+
+if(
+direction==="SHORT" &&
+tp.price>=entry
+){
+
+alert(
+"SHORT TP must be below Entry."
+);
+
+return;
+
+}
+
+}
+
+if(allocation>100){
+
+alert(
+"TP allocation cannot exceed 100%."
+);
+
+return;
+
+}
+
+if(
+Number.isFinite(actualExit) &&
+actualExit>0
+){
+
+if(
+direction==="LONG" &&
+actualExit<=0
+){
+alert("Invalid Actual Exit Price.");
+return;
+}
+
+if(
+direction==="SHORT" &&
+actualExit<=0
+){
+alert("Invalid Actual Exit Price.");
+return;
+}
+
+}
+
+if(tps.length===0 && (!actualExit || actualExit<=0)){
+
+alert(
+"Enter at least one TP or an Actual Exit Price."
+);
+
+return;
+
+}
+
+const riskAmount=
+account*(riskPct/100);
+
+const slDistance=
+Math.abs(entry-sl);
+
+const positionSize=
+riskAmount/slDistance;
+
+const positionValue=
+positionSize*entry;
+
+const margin=
+positionValue/leverage;
+
+let grossReward=0;
+let totalFees=0;
+let weightedTP=0;
+let tpHTML="";
+
+for(const tp of tps){
+
+const qty=
+positionSize*(tp.pct/100);
+
+const gross=
+Math.abs(tp.price-entry)*qty;
+
+const entryFee=
+entry*qty*(feeRate/100);
+
+const exitFee=
+tp.price*qty*(feeRate/100);
+
+const fees=
+entryFee+exitFee;
+
+const net=
+gross-fees;
+
+grossReward+=gross;
+totalFees+=fees;
+
+weightedTP+=
+tp.price*(tp.pct/100);
+
+tpHTML+=`
+
+<div class="tpResult">
+
+<div class="tpResultLine">
+<span>TP${tp.index} • ${tp.pct}%</span>
+<strong>${num(tp.price)}</strong>
+</div>
+
+<div class="tpResultLine">
+<span>Gross</span>
+<strong>${money(gross)}</strong>
+</div>
+
+<div class="tpResultLine">
+<span>Fees</span>
+<strong>${money(fees)}</strong>
+</div>
+
+<div class="tpResultLine">
+<span>Net</span>
+<strong class="${net>=0?"positive":"negative"}">
+${money(net)}
+</strong>
+</div>
+
+</div>
+
+`;
+
+}
+
+const remainingPct=
+Math.max(0,100-allocation);
+
+let remainingGross=0;
+let remainingFees=0;
+let remainingNet=0;
+
+if(
+actualExit>0 &&
+remainingPct>0
+){
+
+const remainingQty=
+positionSize*(remainingPct/100);
+
+let move;
+
+if(direction==="LONG"){
+move=actualExit-entry;
+}else{
+move=entry-actualExit;
+}
+
+remainingGross=
+remainingQty*move;
+
+const remainingEntryFee=
+entry*remainingQty*(feeRate/100);
+
+const remainingExitFee=
+actualExit*remainingQty*(feeRate/100);
+
+remainingFees=
+remainingEntryFee+
+remainingExitFee;
+
+remainingNet=
+remainingGross-
+remainingFees;
+
+grossReward+=remainingGross;
+totalFees+=remainingFees;
+
+}
+
+const netReward=
+grossReward-totalFees;
+
+const netRR=
+netReward/riskAmount;
+
+let bePrice=null;
+
+let trigger=
+document.getElementById("beTrigger").value;
+
+if(trigger==="MANUAL"){
+
+bePrice=
+Number(
+document.getElementById("beManual").value
+);
+
+if(!bePrice){
+
+alert(
+"Enter Manual BE Price."
+);
+
+return;
+
+}
+
+}
+else if(
+trigger==="TP1" ||
+trigger==="TP2" ||
+trigger==="TP3"
+){
+
+bePrice=entry;
+
+}
+
+let actualNetPnL=null;
+let actualR=null;
+
+if(actualExit>0){
+
+actualNetPnL=netReward;
+actualR=actualNetPnL/riskAmount;
+
+}
+
+document.getElementById("riskAmount")
+.textContent=money(riskAmount);
+
+document.getElementById("slDistance")
+.textContent=num(slDistance);
+
+document.getElementById("positionSize")
+.textContent=num(positionSize);
+
+document.getElementById("positionValue")
+.textContent=money(positionValue);
+
+document.getElementById("margin")
+.textContent=money(margin);
+
+document.getElementById("grossReward")
+.textContent=money(grossReward);
+
+document.getElementById("totalFee")
+.textContent=money(totalFees);
+
+document.getElementById("netReward")
+.textContent=money(netReward);
+
+document.getElementById("weightedTP")
+.textContent=
+tps.length
+?num(weightedTP)
+:"—";
+
+document.getElementById("netRR")
+.textContent=
+"1 : "+netRR.toFixed(2);
+
+document.getElementById("actualExit")
+.textContent=
+actualExit>0
+?num(actualExit)
+:"—";
+
+document.getElementById("actualPnL")
+.textContent=
+actualNetPnL!==null
+?money(actualNetPnL)
+:"—";
+
+document.getElementById("actualR")
+.textContent=
+actualR!==null
+?"1 : "+actualR.toFixed(2)
+:"—";
+
+document.getElementById("actualRemaining")
+.textContent=
+remainingPct.toFixed(1)+"%";
+
+document.getElementById("tpResults")
+.innerHTML=tpHTML;
+
+document.getElementById("bePrice")
+.textContent=
+bePrice===null
+?"—"
+:num(bePrice);
+
+document.getElementById("remainingPct")
+.textContent=
+remainingPct.toFixed(1)+"%";
+
+lastTrade={
+
+direction,
+account,
+riskPct,
+leverage,
+entry,
+sl,
+feeRate,
+
+tps,
+
+allocation,
+remainingPct,
+actualExit:
+
+actualExit>0
+?actualExit
+:null,
+
+riskAmount,
+slDistance,
+positionSize,
+positionValue,
+margin,
+
+grossReward,
+totalFees,
+netReward,
+netRR,
+weightedTP,
+
+remainingGross,
+remainingFees,
+remainingNet,
+
+beTrigger:trigger,
+bePrice
+
+};
+
+}
+
+function finishTrade(result){
+
+if(!lastTrade){
+
+alert(
+"Calculate the trade first."
+);
+
+return;
+
+}
+
+if(
+lastTrade.remainingPct>0 &&
+(!lastTrade.actualExit ||
+lastTrade.actualExit<=0)
+){
+
+alert(
+"Enter Actual Exit Price for the remaining position."
+);
+
+return;
+
+}
+
+let pnl;
+let grossPnl;
+
+if(result==="WIN"){
+
+pnl=
+lastTrade.netReward;
+
+grossPnl=
+lastTrade.grossReward;
+
+}
+else{
+
+pnl=
+-lastTrade.riskAmount-
+lastTrade.totalFees;
+
+grossPnl=
+-lastTrade.riskAmount;
+
+}
+
+balance+=pnl;
+
+const trade={
+
+...lastTrade,
+
+result,
+pnl,
+grossPnl,
+balance,
+
+time:
+new Date().toLocaleString()
+
+};
+
+history.unshift(trade);
+
+localStorage.setItem(
+"balance",
+balance
+);
+
+localStorage.setItem(
+"tradeHistory",
+JSON.stringify(history)
+);
+
+document.getElementById("account")
+.value=balance;
+
+renderHistory();
+renderPerformance();
+
+alert(
+result==="WIN"
+?"WIN: +"+money(pnl)
+:"LOSS: -"+money(Math.abs(pnl))
+);
+
+}
+
+function renderPerformance(){
+
+const total=
+history.length;
+
+const wins=
+history.filter(
+t=>t.result==="WIN"
+).length;
+
+const losses=
+history.filter(
+t=>t.result==="LOSS"
+).length;
+
+const net=
+history.reduce(
+(sum,t)=>sum+Number(t.pnl||0),
+0
+);
+
+const fees=
+history.reduce(
+(sum,t)=>sum+Number(t.totalFees||0),
+0
+);
+
+const rate=
+total?
+(wins/total)*100
+:0;
+
+document.getElementById(
+"startingBalance"
+).textContent=
+money(startingBalance);
+
+document.getElementById(
+"currentBalance"
+).textContent=
+money(balance);
+
+document.getElementById(
+"totalTrades"
+).textContent=
+total;
+
+document.getElementById(
+"winRate"
+).textContent=
+rate.toFixed(1)+"%";
+
+document.getElementById(
+"wins"
+).textContent=
+wins;
+
+document.getElementById(
+"losses"
+).textContent=
+losses;
+
+const netEl=
+document.getElementById("netPnl");
+
+netEl.textContent=
+(net>=0?"+":"")+
+money(net);
+
+netEl.className=
+net>=0
+?"positive"
+:"negative";
+
+document.getElementById(
+"feesPnl"
+).textContent=
+money(fees);
+
+}
+
+function renderHistory(){
+
+const box=
+document.getElementById("history");
+
+if(history.length===0){
+
+box.innerHTML=
+'<div class="empty">No trades yet.</div>';
+
+return;
+
+}
+
+box.innerHTML=
+history.map(t=>`
+
+<div class="historyItem">
+
+<div class="historyTop">
+
+<span class="${
+t.direction==="LONG"
+?"longText"
+:"shortText"
+}">
+
+${t.direction} • ${t.result}
+
+</span>
+
+<span class="${
+t.pnl>=0
+?"positive"
+:"negative"
+}">
+
+${t.pnl>=0?"+":""}${money(t.pnl)}
+
+</span>
+
+</div>
+
+Entry ${num(t.entry)}
+• SL ${num(t.sl)}
+
+<br>
+
+${t.tps.length
+?t.tps.map(x=>
+"TP"+x.index+
+" "+num(x.price)+
+" ("+x.pct+"%)"
+).join(" • ")
+:"No TP"}
+
+<br>
+
+Allocation ${Number(t.allocation||0).toFixed(1)}%
+• Remaining ${Number(t.remainingPct||0).toFixed(1)}%
+
+<br>
+
+Actual Exit ${
+t.actualExit!==null
+?num(t.actualExit)
+:"—"
+}
+
+<br>
+
+Risk ${money(t.riskAmount)}
+• Fees ${money(t.totalFees)}
+
+<br>
+
+Net P&L:
+<strong class="${
+t.pnl>=0
+?"positive"
+:"negative"
+}">
+${t.pnl>=0?"+":""}${money(t.pnl)}
+</strong>
+
+<br>
+
+R:R 1:${Number(
+t.netRR||0
+).toFixed(2)}
+
+• BE ${
+t.beTrigger==="OFF"
+?"OFF"
+:(t.bePrice!==null
+?num(t.bePrice)
+:t.beTrigger)
+}
+
+<br>
+
+Balance ${money(t.balance)}
+
+<br>
+
+${t.time}
+
+</div>
+
+`).join("");
+
+}
+
+function clearSetup(){
+
+[
+"entry",
+"sl",
+"tp1",
+"tp1pct",
+"tp2",
+"tp2pct",
+"tp3",
+"tp3pct",
+"beManual",
+"exitPrice"
+].forEach(id=>{
+
+document.getElementById(id).value="";
+
+});
+
+document.getElementById(
+"beTrigger"
+).value="OFF";
+
+toggleManualBE();
+
+document.getElementById(
+"allocationText"
+).textContent="0%";
+
+document.getElementById(
+"allocationText"
+).className="";
+
+[
+["riskAmount","$0.00"],
+["slDistance","0"],
+["positionSize","0"],
+["positionValue","$0.00"],
+["margin","$0.00"],
+["grossReward","$0.00"],
+["totalFee","$0.00"],
+["netReward","$0.00"],
+["weightedTP","—"],
+["netRR","—"],
+["actualExit","—"],
+["actualPnL","—"],
+["actualR","—"],
+["actualRemaining","—"],
+["bePrice","—"],
+["remainingPct","—"]
+].forEach(x=>{
+
+document.getElementById(
+x[0]
+).textContent=x[1];
+
+});
+
+document.getElementById(
+"tpResults"
+).innerHTML="";
+
+lastTrade=null;
+
+}
+
+function clearHistory(){
+
+if(
+!confirm(
+"Clear all trade history?"
+)
+)return;
+
+history=[];
+
+localStorage.removeItem(
+"tradeHistory"
+);
+
+renderHistory();
+renderPerformance();
+
+}
+
+function resetApp(){
+
+if(
+!confirm(
+"Reset account, balance and all trade data?"
+)
+)return;
+
+localStorage.removeItem(
+"startingBalance"
+);
+
+localStorage.removeItem(
+"balance"
+);
+
+localStorage.removeItem(
+"tradeHistory"
+);
+
+startingBalance=0;
+balance=0;
+history=[];
+
+document.getElementById(
+"account"
+).value=0;
+
+clearSetup();
+
+renderHistory();
+renderPerformance();
+
+}
+
+updateAllocation();
+renderHistory();
+renderPerformance();
 
 </script>
 
