@@ -55,33 +55,47 @@ body.light{
 }
 body{
 margin:0;
-padding:18px 13px 40px;
+padding:12px 10px 28px;
 background:var(--bg);
 color:var(--text);
 font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-transition:.25s
+transition:.2s;
 }
-.container{max-width:550px;margin:auto}
+.container{
+max-width:520px;
+margin:auto
+}
 .header{
 display:flex;
 justify-content:space-between;
-align-items:flex-start;
-margin-bottom:20px
+align-items:center;
+margin-bottom:12px
 }
-h1{margin:0;font-size:24px;font-weight:650}
-.sub{color:var(--muted);font-size:12px;margin-top:5px}
+h1{
+margin:0;
+font-size:21px;
+font-weight:650
+}
+.sub{
+color:var(--muted);
+font-size:11px;
+margin-top:3px
+}
 .theme{
-width:42px;height:42px;border-radius:50%;
+width:38px;
+height:38px;
+border-radius:50%;
 border:1px solid var(--border);
 background:var(--card);
 color:var(--text);
-font-size:18px
+font-size:17px
 }
+/* COMPACT CARDS */
 .card{
 border:1px solid var(--border);
-border-radius:17px;
-padding:16px;
-margin-bottom:13px
+border-radius:13px;
+padding:12px;
+margin-bottom:9px
 }
 .account{background:var(--account)}
 .setup{background:var(--setup)}
@@ -91,30 +105,29 @@ margin-bottom:13px
 .performance{background:var(--performance)}
 .history{background:var(--history)}
 h2{
-margin:0 0 13px;
-font-size:15px;
+margin:0 0 9px;
+font-size:14px;
 font-weight:650
 }
 h3{
-margin:14px 0 8px;
-font-size:13px;
-font-weight:650
+margin:10px 0 6px;
+font-size:12px
 }
 label{
 display:block;
-margin:10px 0 6px;
-font-size:12px;
+margin:7px 0 4px;
+font-size:11px;
 color:var(--muted)
 }
 input,select{
 width:100%;
-height:44px;
-border-radius:10px;
+height:39px;
+border-radius:8px;
 border:1px solid var(--inputBorder);
 background:var(--input);
 color:var(--text);
-padding:0 11px;
-font-size:15px;
+padding:0 9px;
+font-size:14px;
 outline:none
 }
 input:focus,select:focus{
@@ -123,28 +136,29 @@ border-color:var(--accent)
 .row{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:9px
+gap:7px
 }
 .accountRow{
 display:grid;
-grid-template-columns:43px 1fr 43px;
-gap:7px
+grid-template-columns:38px 1fr 38px;
+gap:6px
 }
 .smallBtn{
 border:1px solid var(--inputBorder);
 background:var(--input);
 color:var(--text);
-border-radius:10px;
-font-size:19px
+border-radius:8px;
+font-size:18px
 }
+/* DIRECTION */
 .direction{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:8px
+gap:7px
 }
 .direction button{
-height:44px;
-border-radius:10px;
+height:39px;
+border-radius:8px;
 border:1px solid var(--inputBorder);
 background:var(--input);
 color:var(--muted);
@@ -160,133 +174,167 @@ background:var(--shortBg);
 border-color:var(--short);
 color:var(--short)
 }
-.tpGrid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:9px
-}
-.tpBox{
-padding:12px;
+/* COMPACT TP */
+.tpTable{
 border:1px solid var(--border);
-border-radius:12px;
+border-radius:10px;
+overflow:hidden;
 background:var(--input)
 }
-.tpTitle{
-font-size:13px;
-font-weight:700;
-margin-bottom:7px
+.tpRow{
+display:grid;
+grid-template-columns:42px 1fr 92px;
+align-items:center;
+gap:7px;
+padding:7px 8px;
+border-bottom:1px solid var(--border)
+}
+.tpRow:last-child{
+border-bottom:0
+}
+.tpLabel{
+font-size:12px;
+font-weight:700
 }
 .tp1{color:#8299a9}
 .tp2{color:#9b8cae}
 .tp3{color:#a89976}
+.tpRow input{
+height:35px
+}
+.tpHeader{
+display:grid;
+grid-template-columns:42px 1fr 92px;
+gap:7px;
+padding:5px 8px;
+font-size:9px;
+color:var(--muted);
+border-bottom:1px solid var(--border)
+}
+.allocation{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:7px;
+font-size:11px;
+color:var(--muted)
+}
+/* BUTTONS */
 .buttons{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:8px;
-margin-top:16px
+gap:7px
 }
 .mainBtn{
-height:45px;
+height:41px;
 border:0;
-border-radius:10px;
+border-radius:8px;
 background:var(--accent);
 color:var(--bg);
 font-weight:700
 }
 .clearBtn{
-height:45px;
-border-radius:10px;
+height:41px;
+border-radius:8px;
 border:1px solid var(--border);
 background:var(--card);
 color:var(--muted);
 font-weight:650
 }
+/* RESULT */
 .results{
 display:grid;
-grid-template-columns:1fr 1fr;
-gap:8px
+grid-template-columns:repeat(2,1fr);
+gap:6px
 }
 .resultBox,.stat{
 background:var(--input);
 border:1px solid var(--border);
-border-radius:11px;
-padding:11px
+border-radius:9px;
+padding:8px 9px
 }
 .resultBox span,.stat span{
 display:block;
-font-size:11px;
+font-size:9.5px;
 color:var(--muted);
-margin-bottom:5px
+margin-bottom:3px
 }
 .resultBox strong,.stat strong{
-font-size:15px;
+font-size:13px;
 font-weight:650
 }
 .note{
 color:var(--muted);
-font-size:11.5px;
-line-height:1.55;
-margin-top:11px
+font-size:10.5px;
+line-height:1.45;
+margin-top:7px
 }
+/* TP RESULTS */
 .tpResult{
-margin-top:10px;
-padding:11px;
-border-radius:11px;
+margin-top:7px;
+padding:8px 9px;
+border-radius:9px;
 background:var(--input);
 border:1px solid var(--border)
 }
 .tpResultLine{
 display:flex;
 justify-content:space-between;
-padding:4px 0;
-font-size:12px
+padding:2px 0;
+font-size:10.5px
 }
-.beOptions{
+/* BE */
+.beRow{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:8px
+gap:7px
 }
 .beManual{
-margin-top:8px
+margin-top:7px
 }
+/* PERFORMANCE */
 .performanceGrid{
 display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:8px
+grid-template-columns:repeat(4,1fr);
+gap:6px
 }
-.positive{color:var(--long)!important}
-.negative{color:var(--short)!important}
-.warning{color:var(--yellow)!important}
+@media(max-width:430px){
+.performanceGrid{
+grid-template-columns:repeat(2,1fr)
+}
+}
+/* TRADE BUTTONS */
 .tradeButtons{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:8px
+gap:7px
 }
 .win{
-height:45px;
-border-radius:10px;
+height:41px;
+border-radius:8px;
 border:1px solid var(--long);
 background:var(--longBg);
 color:var(--long);
 font-weight:650
 }
 .loss{
-height:45px;
-border-radius:10px;
+height:41px;
+border-radius:8px;
 border:1px solid var(--short);
 background:var(--shortBg);
 color:var(--short);
 font-weight:650
 }
+/* HISTORY */
 .historyItem{
 background:var(--input);
 border:1px solid var(--border);
-border-radius:11px;
-padding:11px;
-margin-bottom:8px;
+border-radius:9px;
+padding:9px;
+margin-bottom:6px;
 color:var(--muted);
-font-size:11.5px;
-line-height:1.65
+font-size:10.5px;
+line-height:1.5
 }
 .historyTop{
 display:flex;
@@ -296,20 +344,37 @@ color:var(--text)
 }
 .longText{color:var(--long)}
 .shortText{color:var(--short)}
-.full{width:100%;margin-top:8px}
+.full{
+width:100%;
+margin-top:6px
+}
 .empty{
 text-align:center;
-padding:10px;
+padding:8px;
 color:var(--muted);
-font-size:12px
+font-size:11px
 }
-@media(max-width:390px){
-body{padding:14px 10px 35px}
-.row,.results,.performanceGrid{
-grid-template-columns:1fr
+.positive{color:var(--long)!important}
+.negative{color:var(--short)!important}
+.warning{color:var(--yellow)!important}
+@media(max-width:360px){
+body{
+padding-left:8px;
+padding-right:8px
 }
-.tpGrid{
-grid-template-columns:1fr
+.card{
+padding:10px
+}
+.tpRow{
+grid-template-columns:38px 1fr 82px;
+gap:5px;
+padding:6px
+}
+.tpHeader{
+grid-template-columns:38px 1fr 82px
+}
+input,select{
+font-size:13px
 }
 }
 </style>
@@ -331,17 +396,17 @@ Risk • TP Management • Break Even • Fees
 <label>Account Size (USDT)</label>
 <div class="accountRow">
 <button class="smallBtn" onclick="changeAccount(-10)">−</button>
-<input id="account" type="number" value="1000">
+<input id="account" type="number" value="0" min="0">
 <button class="smallBtn" onclick="changeAccount(10)">+</button>
 </div>
 <div class="row">
 <div>
 <label>Risk %</label>
-<input id="risk" type="number" value="1" step="0.1">
+<input id="risk" type="number" value="1" min="0" step="0.1">
 </div>
 <div>
 <label>Leverage (x)</label>
-<input id="leverage" type="number" value="10">
+<input id="leverage" type="number" value="1" min="1">
 </div>
 </div>
 </div>
@@ -364,54 +429,50 @@ SHORT
 <div class="row">
 <div>
 <label>Entry</label>
-<input id="entry" type="number" step="any" placeholder="Entry">
+<input id="entry" type="number" step="any">
 </div>
 <div>
 <label>Stop Loss</label>
-<input id="sl" type="number" step="any" placeholder="Stop Loss">
+<input id="sl" type="number" step="any">
 </div>
 </div>
 <label>Trading Fee (%)</label>
-<input id="fee" type="number" value="0.05" step="0.001" min="0">
+<input id="fee" type="number" value="0.05" min="0" step="0.001">
 <div class="note">
-Fee rate is applied separately to the entry and exit notional.
+Fee is calculated on entry and exit notional.
 </div>
 </div>
 <!-- TP -->
 <div class="card tpCard">
-<h2>Take Profit Management</h2>
-<div class="note">
-TP prices and close percentages are completely manual.
-You can use one, two, or three TP levels.
+<h2>Take Profit</h2>
+<div class="tpTable">
+<div class="tpHeader">
+<span></span>
+<span>PRICE</span>
+<span>CLOSE %</span>
 </div>
-<div class="tpGrid">
-<div class="tpBox">
-<div class="tpTitle tp1">TP1</div>
-<label>Price</label>
-<input id="tp1" type="number" step="any" placeholder="Optional">
-<label>Close %</label>
+<div class="tpRow">
+<div class="tpLabel tp1">TP1</div>
+<input id="tp1" type="number" step="any" placeholder="Manual">
 <input id="tp1pct" type="number" min="0" max="100" step="0.1" placeholder="%">
 </div>
-<div class="tpBox">
-<div class="tpTitle tp2">TP2</div>
-<label>Price</label>
-<input id="tp2" type="number" step="any" placeholder="Optional">
-<label>Close %</label>
+<div class="tpRow">
+<div class="tpLabel tp2">TP2</div>
+<input id="tp2" type="number" step="any" placeholder="Manual">
 <input id="tp2pct" type="number" min="0" max="100" step="0.1" placeholder="%">
 </div>
-<div class="tpBox">
-<div class="tpTitle tp3">TP3</div>
-<label>Price</label>
-<input id="tp3" type="number" step="any" placeholder="Optional">
-<label>Close %</label>
+<div class="tpRow">
+<div class="tpLabel tp3">TP3</div>
+<input id="tp3" type="number" step="any" placeholder="Manual">
 <input id="tp3pct" type="number" min="0" max="100" step="0.1" placeholder="%">
 </div>
 </div>
-<div class="note" id="allocationText">
-TP Allocation: 0%
+<div class="allocation">
+<span>TP Allocation</span>
+<strong id="allocationText">0%</strong>
 </div>
 </div>
-<!-- BREAK EVEN -->
+<!-- BE -->
 <div class="card beCard">
 <h2>Break Even</h2>
 <label>BE Trigger</label>
@@ -424,13 +485,13 @@ TP Allocation: 0%
 </select>
 <div id="manualBEBox" class="beManual" style="display:none">
 <label>Manual BE Price</label>
-<input id="beManual" type="number" step="any" placeholder="BE price">
+<input id="beManual" type="number" step="any">
 </div>
 <div class="note">
-BE means the stop for the remaining position is moved to the selected BE price.
+When triggered, remaining position SL moves to BE price.
 </div>
 </div>
-<!-- CALCULATE -->
+<!-- ACTION -->
 <div class="card">
 <div class="buttons">
 <button class="mainBtn" onclick="calculate()">
@@ -493,7 +554,7 @@ Clear
 <strong id="bePrice">—</strong>
 </div>
 <div class="tpResultLine">
-<span>Remaining Position After Trigger</span>
+<span>Remaining After BE</span>
 <strong id="remainingPct">—</strong>
 </div>
 </div>
@@ -509,18 +570,26 @@ Clear
 − LOSS
 </button>
 </div>
-<div class="note">
-WIN uses the calculated net reward.
-LOSS uses the risk amount plus trading fees.
-</div>
 </div>
 <!-- PERFORMANCE -->
 <div class="card performance">
 <h2>Performance</h2>
 <div class="performanceGrid">
 <div class="stat">
+<span>Starting Balance</span>
+<strong id="startingBalance">$0.00</strong>
+</div>
+<div class="stat">
+<span>Current Balance</span>
+<strong id="currentBalance">$0.00</strong>
+</div>
+<div class="stat">
 <span>Total Trades</span>
 <strong id="totalTrades">0</strong>
+</div>
+<div class="stat">
+<span>Win Rate</span>
+<strong id="winRate">0%</strong>
 </div>
 <div class="stat">
 <span>Wins</span>
@@ -531,24 +600,12 @@ LOSS uses the risk amount plus trading fees.
 <strong id="losses">0</strong>
 </div>
 <div class="stat">
-<span>Win Rate</span>
-<strong id="winRate">0%</strong>
-</div>
-<div class="stat">
-<span>Total Gross P&L</span>
-<strong id="grossPnl">$0.00</strong>
-</div>
-<div class="stat">
-<span>Total Fees</span>
-<strong id="feesPnl">$0.00</strong>
-</div>
-<div class="stat">
 <span>Net P&L</span>
 <strong id="netPnl">$0.00</strong>
 </div>
 <div class="stat">
-<span>Current Balance</span>
-<strong id="currentBalance">$1,000.00</strong>
+<span>Total Fees</span>
+<strong id="feesPnl">$0.00</strong>
 </div>
 </div>
 </div>
@@ -567,23 +624,63 @@ Reset App
 <script>
 let direction="LONG";
 let lastTrade=null;
+let startingBalance=
+Number(localStorage.getItem("startingBalance")) || 0;
 let balance=
-Number(localStorage.getItem("balance")) || 1000;
+Number(localStorage.getItem("balance"));
+if(!Number.isFinite(balance)){
+balance=startingBalance;
+}
 let history=
-JSON.parse(localStorage.getItem("tradeHistory") || "[]");
+JSON.parse(
+localStorage.getItem("tradeHistory") || "[]"
+);
 let theme=
 localStorage.getItem("theme") || "dark";
+/* THEME */
 if(theme==="light"){
 document.body.classList.add("light");
 document.getElementById("themeBtn").textContent="☀";
 }
+/* INITIAL ACCOUNT */
 document.getElementById("account").value=balance;
-/* ---------- BASIC ---------- */
+if(history.length===0 && startingBalance===0){
+balance=0;
+}
+/* BASIC */
 function changeAccount(amount){
 let input=document.getElementById("account");
-let value=Number(input.value)||0;
-input.value=Math.max(0,value+amount);
+let value=
+Number(input.value)||0;
+value=Math.max(0,value+amount);
+input.value=value;
+setAccount(value);
 }
+function setAccount(value){
+value=Number(value)||0;
+if(history.length===0){
+startingBalance=value;
+balance=value;
+localStorage.setItem(
+"startingBalance",
+startingBalance
+);
+localStorage.setItem(
+"balance",
+balance
+);
+renderPerformance();
+}
+}
+document
+.getElementById("account")
+.addEventListener("change",function(){
+let value=
+Number(this.value)||0;
+if(history.length===0){
+setAccount(value);
+}
+});
 function toggleTheme(){
 document.body.classList.toggle("light");
 let light=
@@ -597,13 +694,22 @@ document.getElementById("themeBtn")
 }
 function setDirection(dir){
 direction=dir;
-document.getElementById("longBtn")
-.classList.toggle("active",dir==="LONG");
-document.getElementById("shortBtn")
-.classList.toggle("active",dir==="SHORT");
+document
+.getElementById("longBtn")
+.classList.toggle(
+"active",
+dir==="LONG"
+);
+document
+.getElementById("shortBtn")
+.classList.toggle(
+"active",
+dir==="SHORT"
+);
 }
 function money(n){
-return "$"+Number(n).toLocaleString(
+return "$"+
+Number(n).toLocaleString(
 undefined,
 {
 minimumFractionDigits:2,
@@ -619,22 +725,28 @@ maximumFractionDigits:8
 }
 );
 }
-/* ---------- BE ---------- */
+/* BE */
 function toggleManualBE(){
 let value=
 document.getElementById("beTrigger").value;
 document.getElementById("manualBEBox")
 .style.display=
-value==="MANUAL"?"block":"none";
+value==="MANUAL"
+?"block"
+:"none";
 }
-/* ---------- TP DATA ---------- */
+/* TP */
 function getTPs(){
 let arr=[];
 for(let i=1;i<=3;i++){
 let price=
-Number(document.getElementById("tp"+i).value);
+Number(
+document.getElementById("tp"+i).value
+);
 let pct=
-Number(document.getElementById("tp"+i+"pct").value);
+Number(
+document.getElementById("tp"+i+"pct").value
+);
 if(price>0 || pct>0){
 arr.push({
 index:i,
@@ -653,50 +765,85 @@ Number(
 document.getElementById("tp"+i+"pct").value
 )||0;
 }
-let text=
+let el=
 document.getElementById("allocationText");
-text.textContent=
-"TP Allocation: "+total.toFixed(1)+"%";
+el.textContent=
+total.toFixed(1)+"%";
 if(total===100){
-text.className="note positive";
+el.className="positive";
 }
 else if(total>100){
-text.className="note negative";
+el.className="negative";
 }
 else{
-text.className="note warning";
+el.className="warning";
 }
 }
 document
-.querySelectorAll("#tp1pct,#tp2pct,#tp3pct")
+.querySelectorAll(
+"#tp1pct,#tp2pct,#tp3pct"
+)
 .forEach(input=>{
-input.addEventListener("input",updateAllocation);
+input.addEventListener(
+"input",
+updateAllocation
+);
 });
-/* ---------- CALCULATE ---------- */
+/* CALCULATE */
 function calculate(){
 const account=
-Number(document.getElementById("account").value);
+Number(
+document.getElementById("account").value
+);
 const riskPct=
-Number(document.getElementById("risk").value);
+Number(
+document.getElementById("risk").value
+);
 const leverage=
-Number(document.getElementById("leverage").value);
+Number(
+document.getElementById("leverage").value
+);
 const entry=
-Number(document.getElementById("entry").value);
+Number(
+document.getElementById("entry").value
+);
 const sl=
-Number(document.getElementById("sl").value);
+Number(
+document.getElementById("sl").value
+);
 const feeRate=
-Number(document.getElementById("fee").value)||0;
+Number(
+document.getElementById("fee").value
+)||0;
 const tps=getTPs();
-if(!account||!riskPct||!leverage||!entry||!sl){
-alert("Please enter Account, Risk, Leverage, Entry and Stop Loss.");
+if(
+!account ||
+!riskPct ||
+!leverage ||
+!entry ||
+!sl
+){
+alert(
+"Please enter Account, Risk, Leverage, Entry and SL."
+);
 return;
 }
-if(direction==="LONG" && sl>=entry){
-alert("LONG: Stop Loss must be below Entry.");
+if(
+direction==="LONG" &&
+sl>=entry
+){
+alert(
+"LONG: SL must be below Entry."
+);
 return;
 }
-if(direction==="SHORT" && sl<=entry){
-alert("SHORT: Stop Loss must be above Entry.");
+if(
+direction==="SHORT" &&
+sl<=entry
+){
+alert(
+"SHORT: SL must be above Entry."
+);
 return;
 }
 /* TP validation */
@@ -704,26 +851,48 @@ let allocation=0;
 for(const tp of tps){
 allocation+=tp.pct||0;
 if(!tp.price || !tp.pct){
-alert("Each used TP needs both Price and Close %.");
+alert(
+"Each TP needs Price and Close %."
+);
 return;
 }
-if(direction==="LONG" && tp.price<=entry){
-alert("LONG TP prices must be above Entry.");
+if(
+direction==="LONG" &&
+tp.price<=entry
+){
+alert(
+"LONG TP must be above Entry."
+);
 return;
 }
-if(direction==="SHORT" && tp.price>=entry){
-alert("SHORT TP prices must be below Entry.");
+if(
+direction==="SHORT" &&
+tp.price>=entry
+){
+alert(
+"SHORT TP must be below Entry."
+);
 return;
 }
 }
-if(tps.length>0 && Math.abs(allocation-100)>0.001){
+if(
+tps.length===0
+){
+alert(
+"Enter at least one TP."
+);
+return;
+}
+if(
+Math.abs(allocation-100)>0.001
+){
 alert(
 "TP allocation must equal 100%. Current: "+
 allocation.toFixed(1)+"%"
 );
 return;
 }
-/* Risk */
+/* RISK */
 const riskAmount=
 account*(riskPct/100);
 const slDistance=
@@ -734,29 +903,27 @@ const positionValue=
 positionSize*entry;
 const margin=
 positionValue/leverage;
-/* TP profits */
+/* TP */
 let grossReward=0;
-let weightedTPNumerator=0;
+let totalFees=0;
+let weightedTP=0;
 let tpHTML="";
 for(const tp of tps){
 const qty=
 positionSize*(tp.pct/100);
 const gross=
 Math.abs(tp.price-entry)*qty;
-const exitNotional=
-tp.price*qty;
-const entryNotional=
-entry*qty;
 const entryFee=
-entryNotional*(feeRate/100);
+entry*qty*(feeRate/100);
 const exitFee=
-exitNotional*(feeRate/100);
-const totalFee=
+tp.price*qty*(feeRate/100);
+const fees=
 entryFee+exitFee;
 const net=
-gross-totalFee;
+gross-fees;
 grossReward+=gross;
-weightedTPNumerator+=
+totalFees+=fees;
+weightedTP+=
 tp.price*(tp.pct/100);
 tpHTML+=`
 <div class="tpResult">
@@ -765,15 +932,15 @@ tpHTML+=`
 <strong>${num(tp.price)}</strong>
 </div>
 <div class="tpResultLine">
-<span>Gross Profit</span>
+<span>Gross</span>
 <strong>${money(gross)}</strong>
 </div>
 <div class="tpResultLine">
 <span>Fees</span>
-<strong>${money(totalFee)}</strong>
+<strong>${money(fees)}</strong>
 </div>
 <div class="tpResultLine">
-<span>Net Profit</span>
+<span>Net</span>
 <strong class="${net>=0?"positive":"negative"}">
 ${money(net)}
 </strong>
@@ -781,69 +948,51 @@ ${money(net)}
 </div>
 `;
 }
-/* If no TP */
-if(tps.length===0){
-alert("Enter at least one TP.");
-return;
-}
-const totalFees=
-tps.reduce((sum,tp)=>{
-const qty=
-positionSize*(tp.pct/100);
-return sum+
-(entry*qty*(feeRate/100))+
-(tp.price*qty*(feeRate/100));
-},0);
 const netReward=
 grossReward-totalFees;
-const weightedTP=
-weightedTPNumerator;
 const netRR=
 netReward/riskAmount;
 /* BE */
-let bePrice=null;
 let trigger=
 document.getElementById("beTrigger").value;
+let bePrice=null;
+let remaining=null;
 if(trigger==="MANUAL"){
 bePrice=
-Number(document.getElementById("beManual").value);
+Number(
+document.getElementById("beManual").value
+);
 if(!bePrice){
-alert("Enter Manual BE Price.");
+alert(
+"Enter Manual BE Price."
+);
 return;
 }
 }
-else if(trigger==="TP1"){
+else if(
+trigger==="TP1" ||
+trigger==="TP2" ||
+trigger==="TP3"
+){
 bePrice=entry;
 }
-else if(trigger==="TP2"){
-bePrice=entry;
-}
-else if(trigger==="TP3"){
-bePrice=entry;
-}
-let remaining=100;
 if(trigger==="TP1"){
-let tp=tps.find(x=>x.index===1);
-if(tp) remaining=100-tp.pct;
+let a=
+tps.find(x=>x.index===1);
+remaining=
+100-(a?a.pct:0);
 }
 if(trigger==="TP2"){
-let a=tps.find(x=>x.index===1);
-let b=tps.find(x=>x.index===2);
+let a=
+tps.find(x=>x.index===1);
+let b=
+tps.find(x=>x.index===2);
 remaining=
 100-(a?a.pct:0)-(b?b.pct:0);
 }
 if(trigger==="TP3"){
-let a=tps.find(x=>x.index===1);
-let b=tps.find(x=>x.index===2);
-let c=tps.find(x=>x.index===3);
-remaining=
-100-(a?a.pct:0)-(b?b.pct:0)-(c?c.pct:0);
+remaining=0;
 }
-if(trigger==="OFF"){
-bePrice=null;
-remaining=null;
-}
-/* Display */
 document.getElementById("riskAmount")
 .textContent=money(riskAmount);
 document.getElementById("slDistance")
@@ -863,15 +1012,20 @@ document.getElementById("netReward")
 document.getElementById("weightedTP")
 .textContent=num(weightedTP);
 document.getElementById("netRR")
-.textContent="1 : "+netRR.toFixed(2);
+.textContent=
+"1 : "+netRR.toFixed(2);
 document.getElementById("tpResults")
 .innerHTML=tpHTML;
 document.getElementById("bePrice")
 .textContent=
-bePrice===null?"—":num(bePrice);
+bePrice===null
+?"—"
+:num(bePrice);
 document.getElementById("remainingPct")
 .textContent=
-remaining===null?"—":remaining.toFixed(1)+"%";
+remaining===null
+?"—"
+:remaining.toFixed(1)+"%";
 lastTrade={
 direction,
 account,
@@ -889,31 +1043,30 @@ margin,
 grossReward,
 totalFees,
 netReward,
-weightedTP,
 netRR,
+weightedTP,
 beTrigger:trigger,
 bePrice,
 remaining
 };
 }
-/* ---------- TRADE RESULT ---------- */
+/* TRADE RESULT */
 function finishTrade(result){
 if(!lastTrade){
-alert("Calculate the trade first.");
+alert(
+"Calculate the trade first."
+);
 return;
 }
 let pnl;
 let grossPnl;
 if(result==="WIN"){
-pnl=lastTrade.netReward;
-grossPnl=lastTrade.grossReward;
+pnl=
+lastTrade.netReward;
+grossPnl=
+lastTrade.grossReward;
 }
 else{
-/*
-LOSS:
-Risk amount is the planned SL loss.
-Fees are added separately.
-*/
 pnl=
 -lastTrade.riskAmount-
 lastTrade.totalFees;
@@ -927,7 +1080,8 @@ result,
 pnl,
 grossPnl,
 balance,
-time:new Date().toLocaleString()
+time:
+new Date().toLocaleString()
 };
 history.unshift(trade);
 localStorage.setItem(
@@ -944,20 +1098,25 @@ renderHistory();
 renderPerformance();
 alert(
 result==="WIN"
-?"WIN recorded: +"+money(pnl)
-:"LOSS recorded: -"+money(Math.abs(pnl))
+?"WIN: +"+money(pnl)
+:"LOSS: -"+money(Math.abs(pnl))
 );
 }
-/* ---------- PERFORMANCE ---------- */
+/* PERFORMANCE */
 function renderPerformance(){
-const total=history.length;
+const total=
+history.length;
 const wins=
-history.filter(t=>t.result==="WIN").length;
+history.filter(
+t=>t.result==="WIN"
+).length;
 const losses=
-history.filter(t=>t.result==="LOSS").length;
-const gross=
+history.filter(
+t=>t.result==="LOSS"
+).length;
+const net=
 history.reduce(
-(sum,t)=>sum+Number(t.grossPnl||0),
+(sum,t)=>sum+Number(t.pnl||0),
 0
 );
 const fees=
@@ -965,39 +1124,49 @@ history.reduce(
 (sum,t)=>sum+Number(t.totalFees||0),
 0
 );
-const net=
-history.reduce(
-(sum,t)=>sum+Number(t.pnl||0),
-0
-);
 const rate=
-total?(wins/total)*100:0;
-document.getElementById("totalTrades")
-.textContent=total;
-document.getElementById("wins")
-.textContent=wins;
-document.getElementById("losses")
-.textContent=losses;
-document.getElementById("winRate")
-.textContent=rate.toFixed(1)+"%";
-const grossEl=
-document.getElementById("grossPnl");
-grossEl.textContent=
-(gross>=0?"+":"")+money(gross);
-grossEl.className=
-gross>=0?"positive":"negative";
-document.getElementById("feesPnl")
-.textContent=money(fees);
+total?
+(wins/total)*100
+:0;
+document.getElementById(
+"startingBalance"
+).textContent=
+money(startingBalance);
+document.getElementById(
+"currentBalance"
+).textContent=
+money(balance);
+document.getElementById(
+"totalTrades"
+).textContent=
+total;
+document.getElementById(
+"winRate"
+).textContent=
+rate.toFixed(1)+"%";
+document.getElementById(
+"wins"
+).textContent=
+wins;
+document.getElementById(
+"losses"
+).textContent=
+losses;
 const netEl=
 document.getElementById("netPnl");
 netEl.textContent=
-(net>=0?"+":"")+money(net);
+(net>=0?"+":"")+
+money(net);
 netEl.className=
-net>=0?"positive":"negative";
-document.getElementById("currentBalance")
-.textContent=money(balance);
+net>=0
+?"positive"
+:"negative";
+document.getElementById(
+"feesPnl"
+).textContent=
+money(fees);
 }
-/* ---------- HISTORY ---------- */
+/* HISTORY */
 function renderHistory(){
 const box=
 document.getElementById("history");
@@ -1025,43 +1194,45 @@ t.pnl>=0
 ${t.pnl>=0?"+":""}${money(t.pnl)}
 </span>
 </div>
-Entry: ${num(t.entry)}
-• SL: ${num(t.sl)}
+Entry ${num(t.entry)}
+• SL ${num(t.sl)}
 <br>
 ${t.tps.map(x=>
 "TP"+x.index+
-": "+num(x.price)+
+" "+num(x.price)+
 " ("+x.pct+"%)"
 ).join(" • ")}
 <br>
-Risk: ${money(t.riskAmount)}
-• Gross: ${money(t.grossPnl)}
-• Fees: ${money(t.totalFees)}
+Risk ${money(t.riskAmount)}
+• Fees ${money(t.totalFees)}
 <br>
 Net P&L:
 <strong class="${
-t.pnl>=0?"positive":"negative"
+t.pnl>=0
+?"positive"
+:"negative"
 }">
 ${t.pnl>=0?"+":""}${money(t.pnl)}
 </strong>
 <br>
-R:R:
-1:${Number(t.netRR||0).toFixed(2)}
-<br>
-BE:
-${t.beTrigger==="OFF"
+R:R 1:${Number(
+t.netRR||0
+).toFixed(2)}
+• BE ${
+t.beTrigger==="OFF"
 ?"OFF"
 :(t.bePrice!==null
 ?num(t.bePrice)
-:t.beTrigger)}
+:t.beTrigger)
+}
 <br>
-Balance: ${money(t.balance)}
+Balance ${money(t.balance)}
 <br>
 ${t.time}
 </div>
 `).join("");
 }
-/* ---------- CLEAR ---------- */
+/* CLEAR SETUP */
 function clearSetup(){
 [
 "entry",
@@ -1076,13 +1247,16 @@ function clearSetup(){
 ].forEach(id=>{
 document.getElementById(id).value="";
 });
-document.getElementById("beTrigger")
-.value="OFF";
+document.getElementById(
+"beTrigger"
+).value="OFF";
 toggleManualBE();
-document.getElementById("allocationText")
-.textContent="TP Allocation: 0%";
-document.getElementById("allocationText")
-.className="note";
+document.getElementById(
+"allocationText"
+).textContent="0%";
+document.getElementById(
+"allocationText"
+).className="";
 [
 ["riskAmount","$0.00"],
 ["slDistance","0"],
@@ -1097,41 +1271,56 @@ document.getElementById("allocationText")
 ["bePrice","—"],
 ["remainingPct","—"]
 ].forEach(x=>{
-document.getElementById(x[0]).textContent=x[1];
+document.getElementById(
+x[0]
+).textContent=x[1];
 });
-document.getElementById("tpResults")
-.innerHTML="";
+document.getElementById(
+"tpResults"
+).innerHTML="";
 lastTrade=null;
 }
-/* ---------- HISTORY RESET ---------- */
+/* CLEAR HISTORY */
 function clearHistory(){
-if(!confirm("Clear all trade history?"))
-return;
+if(
+!confirm(
+"Clear all trade history?"
+)
+)return;
 history=[];
-localStorage.removeItem("tradeHistory");
+localStorage.removeItem(
+"tradeHistory"
+);
 renderHistory();
 renderPerformance();
 }
+/* RESET */
 function resetApp(){
-if(!confirm(
-"Reset account balance and ALL app data?"
-))
-return;
-localStorage.removeItem("balance");
-localStorage.removeItem("tradeHistory");
-balance=1000;
+if(
+!confirm(
+"Reset account, balance and all trade data?"
+)
+)return;
+localStorage.removeItem(
+"startingBalance"
+);
+localStorage.removeItem(
+"balance"
+);
+localStorage.removeItem(
+"tradeHistory"
+);
+startingBalance=0;
+balance=0;
 history=[];
-document.getElementById("account")
-.value=1000;
-document.getElementById("risk")
-.value=1;
-document.getElementById("leverage")
-.value=10;
+document.getElementById(
+"account"
+).value=0;
 clearSetup();
 renderHistory();
 renderPerformance();
 }
-/* ---------- INIT ---------- */
+/* INIT */
 updateAllocation();
 renderHistory();
 renderPerformance();
